@@ -1,5 +1,5 @@
 {
-  "name": "react-unistore",
+  "name": "@jahredhope/react-unistore",
   "version": "0.0.1",
   "main": "index.js",
   "repository": "git@github.com:jahredhope/react-unistore.git",
@@ -14,7 +14,8 @@
     "lint.type": "tsc --noEmit --project tsconfig.json",
     "lint": "npm run lint.prettier && npm run lint.type && npm run lint.tslint",
     "format": "prettier --write **/*.{mjs,js,ts,tsx}",
-    "test": "npm run lint && npm run test:unit"
+    "test": "npm run lint && npm run test:unit",
+    "prepublish": "npm run build"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

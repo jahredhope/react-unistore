@@ -8,9 +8,9 @@ Connects [unistore](https://github.com/developit/unistore) to [React](https://gi
 ## Install
 
 ```bash
-$ yarn add react-unistore
+$ yarn add @jahredhope/react-unistore
 # OR
-$ npm install --save react-unistore
+$ npm install --save @jahredhope/react-unistore
 ```
 
 ## Usage (TypeScript)
