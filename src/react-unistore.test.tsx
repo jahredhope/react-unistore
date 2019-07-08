@@ -3,7 +3,7 @@ import "jest-dom/extend-expect";
 import React from "react";
 import createStore from "unistore";
 import { Store } from "unistore";
-import { connect, Provider, useAction, useSelector } from "./react-unistore";
+import { connect, Provider, useAction, useSelector } from ".";
 
 interface State {
   a: any;
