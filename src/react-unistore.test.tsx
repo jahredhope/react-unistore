@@ -1,5 +1,5 @@
+import "@testing-library/jest-dom/extend-expect";
 import { act, cleanup, render } from "@testing-library/react";
-import "jest-dom/extend-expect";
 import React from "react";
 import createStore from "unistore";
 import { Store } from "unistore";
@@ -254,7 +254,7 @@ describe("react-unistore", () => {
       const objValue = { val: "initialValue" };
 
       store.setState({ a: objValue });
-      const mapStateToProps = (state: State) => ({ a: state.a });
+      const mapStateToProps = jest.fn((state: State) => ({ a: state.a }));
       const actions: any[] = [];
 
       const ChildComponent = jest.fn(props => (
@@ -274,19 +274,23 @@ describe("react-unistore", () => {
       );
 
       expect(ChildComponent).toHaveBeenCalledTimes(1);
+      expect(mapStateToProps).toHaveBeenCalledTimes(1);
 
       // Same Relevant value
       act(() => store.setState({ a: objValue }));
       expect(ChildComponent).toHaveBeenCalledTimes(1);
+      expect(mapStateToProps).toHaveBeenCalledTimes(2);
       expect(ChildComponent).toHaveBeenNthCalledWith(1, { a: objValue }, {});
 
       // Irrelevant change
       act(() => store.setState({ b: objValue }));
       expect(ChildComponent).toHaveBeenCalledTimes(1);
+      expect(mapStateToProps).toHaveBeenCalledTimes(3);
 
       // New Relevant Value
       act(() => store.setState({ a: { ...objValue } }));
       expect(ChildComponent).toHaveBeenCalledTimes(2);
+      expect(mapStateToProps).toHaveBeenCalledTimes(4);
     });
   });
 });

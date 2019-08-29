@@ -1,3 +1,6 @@
 dist
 .fab
 fab
+index.*
+utils.*
+node_modules

@@ -141,7 +141,7 @@ export function connect<State, Props, Selected>(
           }
         }
       };
-      this.componentWillReceiveProps = (p: Props) => {
+      this.UNSAFE_componentWillReceiveProps = (p: Props) => {
         props = p;
         update();
       };

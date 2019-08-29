@@ -5,13 +5,61 @@ Connects [unistore](https://github.com/developit/unistore) to [React](https://gi
 - Full TypeScript support
 - [Redux](https://github.com/reduxjs/react-redux) like API
 
+[unistore](https://github.com/developit/unistore) already has great support for connecting with react by itself. However at time of writing it does not have support for [React Hooks](https://reactjs.org/docs/hooks-intro.html). This package aims to provide this capability, extending the API with something close to [Redux’s React Hooks API](https://github.com/reduxjs/react-redux).
+
 ## Install
 
 ```bash
-$ yarn add @jahredhope/react-unistore
+$ yarn add unistore react-unistore
 # OR
-$ npm install --save @jahredhope/react-unistore
+$ npm install --save unistore react-unistore
 ```
+
+## API
+
+### `Provider`
+
+**Provider** exposes a store to context. Required for all other functions to work.
+
+Generally an entire application is wrapped in a single `<Provider>` at the root.
+
+```js
+export default () => (
+  <Provider value={store}>
+    <App />
+  </Provider>
+);
+```
+
+### `useAction`
+
+Used to bind an action to the store.
+
+```js
+const setUsername = useSelector((state, username) => ({
+  user: { ...state.user, username },
+}));
+```
+
+### `useSelector`
+
+Used to extract values from the store.
+
+```js
+const user = useSelector(state => state.user);
+```
+
+### `useStore`
+
+Used to access the store itself. Where possible use `useAction` and `useSelector` rather than accessing the store directly.
+
+```js
+const store = useStore();
+```
+
+### `connect`
+
+Pre-hooks method of connecting to the store. See [unistore docs](https://github.com/developit/unistore#connect) for full details.
 
 ## Usage (TypeScript)
 
@@ -75,4 +123,30 @@ export default function ChildComponent() {
     </div>
   );
 }
+```
+
+## Migrating from unistore/react
+
+If you are migrating from unistore/react to be able to use functionality available in this package you should find the API fully backwards compatiable.
+Simply^ change any imports from:
+
+```js
+import { Provider, connect } from "unistore/react";
+```
+
+To:
+
+```js
+import { Provider, connect } from "react-unistore";
+```
+
+^ With one exception. To align with the standard React Context API patterns the Provider must be passed as the 'value' prop.
+
+```js
+export default () => (
+-  <Provider store={store}>
++  <Provider value={store}>
+    <App />
+  </Provider>
+);
 ```
