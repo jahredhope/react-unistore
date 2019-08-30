@@ -131,8 +131,8 @@ export default function ChildComponent() {
 
 ## Migrating from unistore/react
 
-If you are migrating from unistore/react to be able to use functionality available in this package you should find the API fully backwards compatiable.
-Simply^ change any imports from:
+If you are migrating from unistore/react to be able to use functionality available in this package you should find the API fully backwards compatiable^.
+Simply change any imports from:
 
 ```js
 import { Provider, connect } from "unistore/react";
