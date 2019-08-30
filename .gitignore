@@ -1,3 +1,5 @@
 node_modules
-index.*
-utils.*
+/es6/
+/es5/
+.fab
+fab

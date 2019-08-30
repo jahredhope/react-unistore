@@ -9,8 +9,32 @@ import {
 } from "react";
 import { Action, Listener, StateMapper, Store } from "unistore";
 
-// @ts-ignore
-import { assign, mapActions, select } from "./utils";
+export function mapActions(
+  actions: Action<any>[] | ((store: Store<any>) => Action<any>[]),
+  store: Store<any>
+) {
+  if (typeof actions === "function") {
+    actions = actions(store);
+  }
+  const mapped: Record<any, any> = {};
+  for (const i in actions) {
+    mapped[i] = store.action(actions[i]);
+  }
+  return mapped;
+}
+
+export function select(properties: string | string[]) {
+  if (typeof properties === "string") {
+    properties = properties.split(/\s*,\s*/);
+  }
+  return (state: any) => {
+    const selected: Record<any, any> = {};
+    for (let i = 0; i < properties.length; i++) {
+      selected[properties[i]] = state[properties[i]];
+    }
+    return selected;
+  };
+}
 
 const UnistoreContext = createContext<Store<any>>(null);
 
@@ -113,8 +137,8 @@ export const useSelector = <State, Selected>(
  *    export class Foo { render({ foo, bar }) { } }
  */
 export function connect<State, Props, Selected>(
-  mapStateToProps: StateMapper<Props, State, Selected>,
-  actions: Action<State>[]
+  mapStateToProps?: StateMapper<Props, State, Selected>,
+  actions?: Action<State>[]
 ) {
   if (typeof mapStateToProps !== "function") {
     // @ts-ignore
@@ -152,10 +176,7 @@ export function connect<State, Props, Selected>(
         store.unsubscribe(update);
       };
       this.render = () =>
-        createElement(
-          Child,
-          assign(assign(assign({}, boundActions), this.props), state)
-        );
+        createElement(Child, { ...boundActions, ...this.props, ...state });
     }
     Wrapper.contextType = UnistoreContext;
     return ((Wrapper.prototype = Object.create(

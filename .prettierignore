@@ -1,6 +1,6 @@
 dist
 .fab
 fab
-index.*
-utils.*
+/es6/
+/es5/
 node_modules

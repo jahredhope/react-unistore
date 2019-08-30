@@ -1,11 +1,15 @@
+[![npm](https://img.shields.io/npm/v/react-unistore.svg)](https://www.npmjs.com/package/react-unistore)
+
 # react-unistore
 
-Connects [unistore](https://github.com/developit/unistore) to [React](https://github.com/facebook/react)
+> A 778b connector between [React](https://github.com/facebook/react) and [unistore](https://github.com/developit/unistore).
 
-- Full TypeScript support
+- Easy to use [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+- Strong [TypeScript](https://www.typescriptlang.org/docs/home.html) type safety
 - [Redux](https://github.com/reduxjs/react-redux) like API
+- Small footprint complements unistore nicely (350b + 778b)
 
-[unistore](https://github.com/developit/unistore) already has great support for connecting with react by itself. However at time of writing it does not have support for [React Hooks](https://reactjs.org/docs/hooks-intro.html). This package aims to provide this capability, extending the API with something close to [Redux’s React Hooks API](https://github.com/reduxjs/react-redux).
+[unistore](https://github.com/developit/unistore) already has great support for connecting with React by itself. However at time of writing it does not have support for [React Hooks](https://reactjs.org/docs/hooks-intro.html). This package aims to provide this capability, extending the API with something close to [Redux’s React Hooks API](https://github.com/reduxjs/react-redux).
 
 ## Install
 
@@ -36,7 +40,7 @@ export default () => (
 Used to bind an action to the store.
 
 ```js
-const setUsername = useSelector((state, username) => ({
+const setUsername = useAction((state, username) => ({
   user: { ...state.user, username },
 }));
 ```
@@ -118,7 +122,7 @@ export default function ChildComponent() {
   }));
   return (
     <div>
-      <span>Hi {user.firstName || "you"},</span>
+      <span>Hi {user.firstName || "you"}</span>
       <button onClick={() => setFirstName("Fred")}>Update</button>
     </div>
   );
@@ -149,4 +153,13 @@ export default () => (
     <App />
   </Provider>
 );
+```
+
+## Package Size of 778 Bytes
+
+```
+Raw File Size (ES6 version): 3.51 KiB
+Raw File Size (ES5 version): 4.00 KiB
+Minified + Gzip (ES6 version): 778 Bytes
+Minified + Gzip (ES5 version): 864 Bytes
 ```
